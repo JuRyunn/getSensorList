@@ -2,13 +2,43 @@ package com.example.getsensorlist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.widget.TextView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    TextView nTxtSensors;
+    SensorManager sensorMgr;
+    List<Sensor> sensorList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        nTxtSensors = findViewById(R.id.txtSensors);
+        nTxtSensors.setMovementMethod(new ScrollingMovementMethod()); //스크롤
+
+        sensorMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        sensorList = sensorMgr.getSensorList(Sensor.TYPE_ALL);
+
+        nTxtSensors.append("(#Sensors: " + sensorList.size() + ") \n\n");
+
+
+
+        for (Sensor sensor : sensorList){
+            nTxtSensors.append("Sensor Name: " + sensor.getName() + "\n");
+            nTxtSensors.append("Sensor Type: " + sensor.getType() + "\n\n");
+
+        }
+
+
     }
 }
