@@ -28,9 +28,11 @@ public class MainActivity extends AppCompatActivity {
         //nTxtSensors.setMovementMethod(new ScrollingMovementMethod()); //스크롤
 
         mButton = findViewById(R.id.button);
-        mButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-                    public void onClick(View v) {
+        mButton.setOnClickListener(this::onClick); {
+
+        }
+    }
+            public void onClick (View v){
                 sensorMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
 
                 sensorList = sensorMgr.getSensorList(Sensor.TYPE_ALL);
@@ -41,11 +43,8 @@ public class MainActivity extends AppCompatActivity {
                     nTxtSensors.append("Sensor Name: " + sensor.getName() + "\n");
                     nTxtSensors.append("Sensor Type: " + sensor.getType() + "\n\n");
                 }
+
+
             }
-        });
+        }
 
-
-
-
-    }
-}
